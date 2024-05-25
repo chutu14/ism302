@@ -99,37 +99,7 @@ public class UserDAO extends DBConnect {
         return users;
     }
 
-    public List<Users> Paging(List<Users> users, int page, int pageSize) {
-        int fromIndex = (page - 1) * pageSize;
-        int toIndex = Math.min(fromIndex + pageSize, users.size());
 
-        if (fromIndex > toIndex) {
-            // Handle the case where fromIndex is greater than toIndex
-            fromIndex = toIndex;
-        }
-
-        return users.subList(fromIndex, toIndex);
-    }
-
-    public void mapParams(PreparedStatement ps, List<Object> args) throws SQLException {
-        int i = 1;
-        for (Object arg : args) {
-            if (arg instanceof Date) {
-                ps.setTimestamp(i++, new Timestamp(((Date) arg).getTime()));
-            } else if (arg instanceof Integer) {
-                ps.setInt(i++, (Integer) arg);
-            } else if (arg instanceof Long) {
-                ps.setLong(i++, (Long) arg);
-            } else if (arg instanceof Double) {
-                ps.setDouble(i++, (Double) arg);
-            } else if (arg instanceof Float) {
-                ps.setFloat(i++, (Float) arg);
-            } else {
-                ps.setString(i++, (String) arg);
-            }
-
-        }
-    }
 
    public Users getUserById(int userId) throws SQLException {
         String query = "SELECT * FROM isp392_3.user WHERE user_id = ?";
@@ -188,7 +158,6 @@ public class UserDAO extends DBConnect {
 //                preparedStatement.setString(2, newUser.getPassword());
 //                preparedStatement.setString(3, newUser.getFirstName());
 //                preparedStatement.setString(4, newUser.getLastName());
-//                preparedStatement.setString(5, newUser.getCitizentID());
 //                preparedStatement.setInt(4, newUser.getId());
 //
 //                int rowsAffected = preparedStatement.executeUpdate();
